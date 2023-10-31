@@ -279,3 +279,9 @@ with st.sidebar:
     st.write(f'Total Bedrock Cost: ${bedrock_cost * 30:.2f}')
     st.write(f'Total Kendra Cost: ${kendra_cost:.2f}')
     st.write(f'Total Solution Cost: ${((bedrock_cost * 30) + kendra_cost):.2f}')
+
+
+
+# TODO: make the pricing obvious that its an estimate
+#  add a tokenizer
+#  input and output answer
