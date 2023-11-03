@@ -1,7 +1,7 @@
 import streamlit as st
 from token_counter import num_tokens_from_string
 
-st.title('Amazon Bedrock Pricing Calculator')
+st.title('Amazon Bedrock ESTIMATION Pricing Calculator')
 
 tab1, tab2, tab3 = st.tabs(["Bedrock Pricing", "RAG Solution Data Store", "FAQs"])
 
@@ -15,8 +15,8 @@ with tab1:
 
         model = st.selectbox('Select model', ['Jurassic-2 Mid', 'Jurassic-2 Ultra'])
 
-        input_tokens = st.number_input('Input tokens', min_value=0, max_value=1000000, value=10000)
-        output_tokens = st.number_input('Output tokens', min_value=0, max_value=1000000, value=2000)
+        input_tokens = st.number_input('Input tokens', min_value=0, max_value=1000000, value=1000)
+        output_tokens = st.number_input('Output tokens', min_value=0, max_value=1000000, value=1000)
         customer_requests = st.number_input("Customer Requests per Day", min_value=0, max_value=1000000, value=500)
 
         if model == 'Jurassic-2 Mid':
@@ -39,7 +39,7 @@ with tab1:
         if pricing_option == 'On-Demand':
             model = st.selectbox('Select model', ['Titan Text - Lite', 'Titan Text - Express', 'Titan Embeddings'])
 
-            input_tokens = st.number_input('Input tokens', min_value=0, max_value=1000000, value=8000)
+            input_tokens = st.number_input('Input tokens', min_value=0, max_value=1000000, value=1000)
 
             if model == 'Titan Text - Lite':
                 input_price = 0.0003
@@ -52,10 +52,12 @@ with tab1:
                 output_price = 0
 
             if model != 'Titan Embeddings':
-                output_tokens = st.number_input('Output tokens', min_value=0, max_value=1000000, value=2000)
+                output_tokens = st.number_input('Output tokens', min_value=0, max_value=1000000, value=1000)
                 customer_requests = st.number_input("Customer Requests per Day", min_value=0, max_value=1000000, value=500)
                 bedrock_cost = (((input_tokens / 1000) * input_price) + ((output_tokens / 1000) * output_price)) * customer_requests
             else:
+                customer_requests = st.number_input("Customer Requests per Day", min_value=0, max_value=1000000,
+                                                    value=500)
                 bedrock_cost = ((input_tokens / 1000) * input_price) * customer_requests
 
             st.write(f'Total Bedrock Cost (Daily): ${bedrock_cost:.4f}')
@@ -310,7 +312,7 @@ with st.sidebar:
     st.write(f'Total Bedrock Cost: ${bedrock_cost * 30:.2f}')
     st.write(f'Total Kendra Cost: ${kendra_cost:.2f}')
     st.write(f'Total OpenSearch Cost: ${opensearch_cost:.2f}')
-    st.write(f'Total Solution Cost: ${((bedrock_cost * 30) + kendra_cost):.2f}')
+    st.write(f'Total Solution Cost: ${((bedrock_cost * 30) + kendra_cost + opensearch_cost):.2f}')
     with st.expander("TOKEN COUNTER"):
         txt = st.text_area("Insert your text below to calculate how many tokens it is equivalent to:")
         button = st.button("Calculate Tokens")
