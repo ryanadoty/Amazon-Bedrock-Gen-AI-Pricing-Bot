@@ -6,7 +6,7 @@ This is sample code that can be used to provide high-level pricing estimates for
 The goal of this repo is to provide users the ability to create high level pricing estiamtes for Amazon Bedrock usage  and RAG applications.
 This repo comes with a basic frontend to help users stand up the pricing application in just a few minutes.
 
-![Alt text](images/ui_screenshot.png "POC Architecture")
+![](images/bedrock_rag_pricing_calculator.gif "POC Architecture")
 
 # How to use this Repo:
 
