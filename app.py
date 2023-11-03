@@ -277,18 +277,21 @@ with tab2:
                 query_additional_capacity_pricing = 0
             kendra_cost = price_per_month + connector_usage_hours_price + connector_docs_scanned_price + storage_additional_capacity_pricing + query_additional_capacity_pricing
         st.write(f'Total monthly Kendra Cost: ${kendra_cost:.2f}')
+        st.write(
+            "[For more information on Amazon Kendra Pricing](https://aws.amazon.com/kendra/pricing/#:~:text=us%20for%20details.-,Pricing%20table,-The%20resources%20provisioned)")
     if provider == 'Amazon OpenSearch Serverless Vector Store':
         kendra_cost = 0
 
         indexing_OCU = st.number_input("How many OpenSearch Compute Units (OCU's) do you expect to consume for indexing (hourly)? (minimum of 2)", min_value=2, max_value=10000, value=2)
         search_and_query_OCU = st.number_input("How many OpenSearch Compute Units (OCU's) do you expect to consume for Search and Querying (hourly)? (minimum of 2)", min_value=2,max_value=10000, value=2)
         managed_storage = st.number_input("How many GB of data do you expect to store within OpenSearch Serverless Vector Search? (monthly)", min_value=0,max_value=10000, value=0)
-
         indexing_OCU_pricing = (indexing_OCU * 730) * 0.24
         search_and_query_OCU_pricing = (search_and_query_OCU * 730) * 0.24
         managed_storage_OCU_pricing = managed_storage * 0.24
         opensearch_cost = indexing_OCU_pricing + search_and_query_OCU_pricing + managed_storage_OCU_pricing
-    st.write(f'Total monthly OpenSearch Serverless Vector Store Cost: ${opensearch_cost:.2f}')
+        st.write(f'Total monthly OpenSearch Serverless Vector Store Cost: ${opensearch_cost:.2f}')
+        st.write(
+            "[For more information on Amazon OpenSearch Serverless Pricing](https://aws.amazon.com/opensearch-service/pricing/#:~:text=Reserved%20Instance%20term.-,Amazon%20OpenSearch%20Serverless,-With%20Amazon%20OpenSearch)")
 
 with tab3:
     st.header("FREQUENTLY ASKED QUESTIONS:")
@@ -315,6 +318,7 @@ with st.sidebar:
     st.write(f'Total Solution Cost ESTIMATE: ${((bedrock_cost * 30) + kendra_cost + opensearch_cost):.2f}')
     with st.expander("TOKEN COUNTER ESTIMATOR"):
         txt = st.text_area("Insert your text below to calculate how many tokens it is equivalent to:")
+        st.write("[This uses TikToken to Calculate Tokens](https://pypi.org/project/tiktoken/)")
         button = st.button("Calculate Tokens")
         if button:
             st.header(f"""This piece of text contains {num_tokens_from_string(txt)} Tokens""")
