@@ -308,12 +308,12 @@ with tab3:
         """)
 
 with st.sidebar:
-    st.header("TOTAL MONTHLY COST:")
+    st.header("TOTAL MONTHLY COST ESTIMATION:")
     st.write(f'Total Bedrock Cost: ${bedrock_cost * 30:.2f}')
     st.write(f'Total Kendra Cost: ${kendra_cost:.2f}')
     st.write(f'Total OpenSearch Cost: ${opensearch_cost:.2f}')
-    st.write(f'Total Solution Cost: ${((bedrock_cost * 30) + kendra_cost + opensearch_cost):.2f}')
-    with st.expander("TOKEN COUNTER"):
+    st.write(f'Total Solution Cost ESTIMATE: ${((bedrock_cost * 30) + kendra_cost + opensearch_cost):.2f}')
+    with st.expander("TOKEN COUNTER ESTIMATOR"):
         txt = st.text_area("Insert your text below to calculate how many tokens it is equivalent to:")
         button = st.button("Calculate Tokens")
         if button:
